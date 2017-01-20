@@ -64,8 +64,15 @@ window.addEventListener('keydown', function (e){
   if(!audio) return; // this just quits the function if a invalid key is pressed
   audio.currentTime = 0; // resets the time of the sound so it can replay on each press
   audio.play();
-  console.log(key);
+  key.classList.add('playing');
 })
+function removeTransition(e) {
+  if(e.propertyName !== 'transform') return; //skips anything that isn't transform
+  this.classList.remove('playing');
+}
+
+const keys = document.querySelectorAll('.key');
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 </script>
 
 
